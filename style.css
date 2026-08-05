@@ -171,13 +171,16 @@ button:hover {
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 4px 10px;
-  font-size: 0.75rem;
   font-weight: 600;
   color: var(--mjc-dark);
   z-index: 10;
 }
 
 .school-badge img {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
+}
+
+.school-badge span {
+  font-size: 2.25rem;
 }
