@@ -1,22 +1,24 @@
-/* 디자인 컨셉: "동아리 코르크보드" — 모스그린 게시판 위에 핀으로 꽂은 종이 카드 */
+/* 디자인 컨셉: 명지전문대 심볼 컬러 기반의 깔끔한 화이트 테마 */
 
 * {
   box-sizing: border-box;
 }
 
 :root {
-  --board: #3f4a3d;
-  --paper: #fbf6ea;
-  --ink: #2a2620;
-  --cream: #f3efe2;
-  --brass: #c08a2e;
-  --rust: #a8452f;
+  --mjc-dark: #071d49;
+  --mjc-blue: #005eb8;
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --border: #e1e5eb;
+  --text: #1a1f2b;
+  --text-muted: #5a6472;
+  --danger: #c0392b;
 }
 
 body {
   font-family: system-ui, -apple-system, "Malgun Gothic", sans-serif;
-  background: var(--board);
-  color: var(--cream);
+  background: var(--bg);
+  color: var(--text);
   max-width: 640px;
   margin: 0 auto;
   padding: 24px 16px 48px;
@@ -24,49 +26,34 @@ body {
 }
 
 h1 {
-  font-size: 1.5rem;
-  letter-spacing: 0.02em;
+  font-size: 1.4rem;
+  font-weight: 700;
   text-align: center;
+  color: var(--mjc-dark);
   margin-bottom: 24px;
-  color: var(--cream);
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--mjc-blue);
 }
 
 h2 {
   font-size: 1rem;
+  font-weight: 600;
   margin: 0 0 12px;
-  color: var(--ink);
+  color: var(--mjc-dark);
 }
 
 section {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
-/* 공통 종이 카드: 등록 폼, 목록 항목, 툴바 모두에 적용 */
 #io-section,
 #search-section,
 #register-section,
 #list-section li {
-  background: var(--paper);
-  color: var(--ink);
-  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
   padding: 14px 16px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
-  position: relative;
-}
-
-/* 핀으로 꽂은 느낌: 카드 상단에 놋쇠 압정 */
-#register-section::before,
-#list-section li::before {
-  content: "";
-  position: absolute;
-  top: -7px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #f0cf87, var(--brass));
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
 }
 
 #io-section,
@@ -74,10 +61,6 @@ section {
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-#register-section {
-  transform: rotate(-0.6deg);
 }
 
 #register-form {
@@ -94,11 +77,11 @@ button {
 
 input,
 textarea {
-  border: 1px solid #c9c2b0;
-  border-radius: 3px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
   padding: 8px 10px;
-  background: #fffdf8;
-  color: var(--ink);
+  background: var(--surface);
+  color: var(--text);
 }
 
 textarea {
@@ -109,29 +92,29 @@ textarea {
 button {
   cursor: pointer;
   border: none;
-  border-radius: 3px;
+  border-radius: 6px;
   padding: 8px 14px;
-  background: var(--brass);
-  color: var(--ink);
+  background: var(--mjc-blue);
+  color: #ffffff;
   font-weight: 600;
+  transition: background 0.15s ease;
 }
 
 button:hover {
-  filter: brightness(1.08);
+  background: var(--mjc-dark);
 }
 
 #register-error {
-  color: var(--rust);
+  color: var(--danger);
   font-size: 0.9rem;
   margin: 0;
   min-height: 1.2em;
 }
 
-/* 목록: 장부/영수증 느낌의 고정폭 글꼴 */
 #list-section {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 
 #list-section ul {
@@ -140,44 +123,39 @@ button:hover {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 
 #list-section li {
-  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   line-height: 1.6;
-}
-
-#list-section li:nth-child(odd) {
-  transform: rotate(0.5deg);
-}
-
-#list-section li:nth-child(even) {
-  transform: rotate(-0.5deg);
+  border-left: 4px solid var(--mjc-blue);
 }
 
 #list-section li strong {
-  font-family: system-ui, -apple-system, "Malgun Gothic", sans-serif;
   font-size: 1.05rem;
+  color: var(--mjc-dark);
 }
 
 .delete-btn {
   margin-top: 8px;
-  background: var(--rust);
-  color: var(--cream);
+  background: var(--danger);
+}
+
+.delete-btn:hover {
+  background: #962f22;
 }
 
 #list-section > p {
-  background: var(--paper);
-  color: var(--ink);
-  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
   padding: 14px 16px;
   text-align: center;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  color: var(--text-muted);
 }
 
 :focus-visible {
-  outline: 3px solid var(--brass);
+  outline: 2px solid var(--mjc-blue);
   outline-offset: 2px;
 }
