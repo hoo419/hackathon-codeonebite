@@ -2,8 +2,20 @@
 // getActivities() / saveActivities(list) / renderActivities(list) 는 app.js에 정의되어 있음.
 // 이 파일이 index.html에서 app.js 다음에 로드되므로 그대로 가져다 쓸 수 있음.
 
-// TODO: 키워드 검색 (#search-section) — 입력 즉시 실시간 필터링, 활동명·장소 대상
-//   예: input의 'input' 이벤트에서 getActivities()를 필터링한 결과를 renderActivities()에 넘기기
+// 검색어로 활동명·장소를 필터링한 배열을 반환한다
+function filterActivities(keyword) {
+  const lower = keyword.trim().toLowerCase();
+  if (!lower) return getActivities();
+  return getActivities().filter(activity =>
+    activity.title.toLowerCase().includes(lower) ||
+    activity.place.toLowerCase().includes(lower)
+  );
+}
+
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', () => {
+  renderActivities(filterActivities(searchInput.value));
+});
 
 // TODO: JSON 내보내기 (#io-section) — getActivities() 결과를 JSON 파일로 다운로드
 
