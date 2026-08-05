@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Malgun Gothic", sans-serif;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 16px;
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: 1.4rem;
+}
+
+section {
+  margin-bottom: 24px;
+}
