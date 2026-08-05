@@ -17,7 +17,18 @@ searchInput.addEventListener('input', () => {
   renderActivities(filterActivities(searchInput.value));
 });
 
-// TODO: JSON 내보내기 (#io-section) — getActivities() 결과를 JSON 파일로 다운로드
+// 활동 데이터 전체를 JSON 파일로 다운로드한다
+function exportActivities() {
+  const blob = new Blob([JSON.stringify(getActivities(), null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'activities.json';
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+document.getElementById('export-btn').addEventListener('click', exportActivities);
 
 // TODO: JSON 가져오기 (#io-section) — 선택한 파일을 파싱해 기존 데이터에 추가로 합침
 //   (id 중복 시 새 id 부여 후 saveActivities()로 저장, renderActivities()로 다시 그리기)
