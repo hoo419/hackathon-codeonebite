@@ -56,9 +56,59 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
-// TODO: 활동 등록 폼 처리 (#register-section) — 검증: 활동명 필수 / 날짜 미래 불가 / 참여인원 1이상 정수
+// 입력값을 검증한다. 문제가 있으면 에러 메시지를, 없으면 빈 문자열을 반환
+function validateActivity({ title, date, memberCount }) {
+  if (!title) return '활동명은 필수입니다.';
+  const today = new Date().toISOString().slice(0, 10);
+  if (date && date > today) return '날짜는 미래일 수 없습니다.';
+  if (!Number.isInteger(memberCount) || memberCount < 1) {
+    return '참여 인원은 1 이상의 정수여야 합니다.';
+  }
+  return '';
+}
+
+// 활동 등록 폼 제출을 처리한다: 검증 후 저장하고 목록을 다시 그린다
+function handleRegisterSubmit(event) {
+  event.preventDefault();
+  const titleInput = document.getElementById('title-input');
+  const dateInput = document.getElementById('date-input');
+  const placeInput = document.getElementById('place-input');
+  const memberCountInput = document.getElementById('member-count-input');
+  const memoInput = document.getElementById('memo-input');
+  const errorEl = document.getElementById('register-error');
+
+  const title = titleInput.value.trim();
+  const date = dateInput.value;
+  const place = placeInput.value.trim();
+  const memberCount = Number(memberCountInput.value);
+  const memo = memoInput.value.trim();
+
+  const error = validateActivity({ title, date, memberCount });
+  if (error) {
+    errorEl.textContent = error;
+    return;
+  }
+  errorEl.textContent = '';
+
+  const list = getActivities();
+  list.push({
+    id: Date.now(),
+    title,
+    date,
+    place,
+    memberCount,
+    memo,
+    createdAt: new Date().toISOString(),
+  });
+  saveActivities(list);
+  renderActivities(list);
+  event.target.reset();
+}
+
 // TODO: 활동 삭제 처리 (삭제 버튼은 renderActivities에서 이미 그려짐, 클릭 이벤트/확인 절차만 추가)
 
 document.addEventListener('DOMContentLoaded', () => {
   renderActivities(getActivities());
+  document.getElementById('register-form').addEventListener('submit', handleRegisterSubmit);
+  document.getElementById('date-input').max = new Date().toISOString().slice(0, 10);
 });
