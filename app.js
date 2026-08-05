@@ -105,10 +105,21 @@ function handleRegisterSubmit(event) {
   event.target.reset();
 }
 
-// TODO: 활동 삭제 처리 (삭제 버튼은 renderActivities에서 이미 그려짐, 클릭 이벤트/확인 절차만 추가)
+// 목록 영역의 삭제 버튼 클릭을 처리한다 (이벤트 위임, 삭제 전 확인 절차 포함)
+function handleListClick(event) {
+  const button = event.target.closest('.delete-btn');
+  if (!button) return;
+  const id = Number(button.dataset.id);
+  if (!confirm('이 활동을 삭제할까요?')) return;
+
+  const list = getActivities().filter((activity) => activity.id !== id);
+  saveActivities(list);
+  renderActivities(list);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   renderActivities(getActivities());
   document.getElementById('register-form').addEventListener('submit', handleRegisterSubmit);
   document.getElementById('date-input').max = new Date().toISOString().slice(0, 10);
+  document.getElementById('list-section').addEventListener('click', handleListClick);
 });
