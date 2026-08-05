@@ -46,4 +46,12 @@
 
 ## 실행 화면
 
-<!-- 구현 완료 후 스크린샷 2장 이상 추가 (예: 활동 등록 화면, 목록/검색 화면) -->
+### 활동 등록 화면
+검색·JSON 내보내기/가져오기 툴바와 활동 등록 폼
+
+![활동 등록 화면](assets/screenshots/register-form.png)
+
+### 활동 목록 화면
+등록된 활동이 최신순 카드 목록으로 표시됨
+
+![활동 목록 화면](assets/screenshots/activity-list.png)
